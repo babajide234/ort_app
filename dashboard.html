@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-datatables@1.8.6/dist/vanilla-dataTables.min.css" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- DataTables JS -->
+
+
+</head>
+<body>
+    <div class="dashboard-page">
+        <!-- NAVBAR -->
+          <header class="navbar">
+            <div class="nav-left" style="display:flex;align-items:center;gap:1rem;">
+              <img src="./assets/image/NSIA-Logo.svg" alt="logo" style="height:44px;border-radius:4px;">
+              <div class="logo">Legal Portal</div>
+            </div>
+        
+            <div class="nav-right">
+              <span class="nav-right-text">Good afternoon, Princess Audu</span>
+              <div class="nav-icons">
+                <a href="#" class="nav-icon-link" id="notificationBtn">
+                  <i class="fas fa-bell"></i>
+                  <span class="notification-badge"></span>
+                </a>
+                <a href="#" class="nav-icon-link">
+                  <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                  </div>
+                </a>
+                <a href="#" class="nav-icon-link" id="logoutBtn">
+                  <i class="fas fa-sign-out-alt"></i>
+                </a>
+              </div>
+            </div>
+          </header>
+
+          <!-- NOTIFICATION POPUP -->
+          <div class="notification-popup" id="notificationPopup">
+            <div class="notification-header">
+              <h3>Notifications</h3>
+              <div class="notification-tabs">
+                <button class="notification-tab active">All</button>
+                <button class="notification-tab">Comments</button>
+                <button class="notification-tab">Request</button>
+                <button class="notification-tab">Tasks</button>
+              </div>
+            </div>
+            <div class="notification-list">
+              <div class="notification-item">
+                <div class="notification-avatar">JD</div>
+                <div class="notification-content">
+                  <div class="notification-title">Request [Request ID] has been closed.</div>
+                  <div class="notification-description">The final document has been uploaded for your request, and the process is complete.</div>
+                  <div class="notification-meta">
+                    <span class="notification-time">1 day ago</span>
+                    <a href="#" class="notification-link">View details</a>
+                  </div>
+                </div>
+              </div>
+              <div class="notification-item">
+                <div class="notification-avatar">JD</div>
+                <div class="notification-content">
+                  <div class="notification-title">More information needed.</div>
+                  <div class="notification-description">John D. has requested more information on your request [Request ID]</div>
+                  <div class="notification-meta">
+                    <span class="notification-time">9 hours ago</span>
+                    <a href="#" class="notification-link">View details</a>
+                  </div>
+                </div>
+              </div>
+              <div class="notification-item">
+                <div class="notification-avatar">JD</div>
+                <div class="notification-content">
+                  <div class="notification-title">New comment on your request.</div>
+                  <div class="notification-description">John D. has commented on your request [Request ID].</div>
+                  <div class="notification-meta">
+                    <span class="notification-time">1 day ago</span>
+                    <a href="#" class="notification-link">View details</a>
+                  </div>
+                </div>
+              </div>
+              <div class="notification-item">
+                <div class="notification-avatar">GC</div>
+                <div class="notification-content">
+                  <div class="notification-title">Your request [Request ID] is now in review.</div>
+                  <div class="notification-description">Your request [Request ID] has been reviewed by the General Counsel and is now assigned to a Legal Officer.</div>
+                  <div class="notification-meta">
+                    <span class="notification-time">1 day ago</span>
+                    <a href="#" class="notification-link">View details</a>
+                  </div>
+                </div>
+              </div>
+              <div class="notification-item">
+                <div class="notification-avatar">JD</div>
+                <div class="notification-content">
+                  <div class="notification-title">Your request has been assigned.</div>
+                  <div class="notification-description">Your request [Request ID] has been assigned to Jane Doe</div>
+                  <div class="notification-meta">
+                    <span class="notification-time">1 hour ago</span>
+                    <a href="#" class="notification-link">View details</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LOGOUT POPUP -->
+          <div class="logout-popup" id="logoutPopup">
+            <div class="logout-content">
+              <h3>Are you sure you want to log out?</h3>
+              <p>You will be logged out of your account, but you can always log back in anytime.</p>
+              <div class="logout-actions">
+                <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+                <button class="btn btn-primary" id="confirmLogout">Log out</button>
+              </div>
+            </div>
+          </div>
+        
+          <!-- DASHBOARD LAYOUT -->
+          <div class="dashboard">
+        
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+              <nav class="sidebar-nav">
+                <a href="my-request.html" class="sidebar-link">
+                  <i class="fas fa-clipboard-list"></i>
+                  <span>My Active Request</span>
+                </a>
+                <a href="legal-report.html" class="sidebar-link active">
+                  <i class="fas fa-file-alt"></i>
+                  <span>Legal Report</span>
+                </a>
+                <a href="historical.html" class="sidebar-link">
+                  <i class="fas fa-history"></i>
+                  <span>Historical Report</span>
+                </a>
+                <a href="#" class="sidebar-link">
+                  <i class="fas fa-handshake"></i>
+                  <span>Agreement Tracker</span>
+                </a>
+                <a href="#" class="sidebar-link">
+                  <i class="fas fa-folder"></i>
+                  <span>Documents</span>
+                </a>
+              </nav>
+        
+              <div class="sidebar-footer">
+                <a href="#" class="sidebar-link sidebar-faq">
+                  <i class="fas fa-question-circle"></i>
+                  <span>FAQ</span>
+                </a>
+              </div>
+            </aside>
+        
+            <!-- CONTENT -->
+            <main class="dashboard-content">
+              <!-- Search and New Request -->
+              <div class="dashboard-header">
+                <div class="search-container">
+                  <i class="fas fa-search search-icon"></i>
+                  <input type="text" class="search-input" placeholder="Search">
+                </div>
+                <button class="btn btn-primary" id="newRequestBtn">
+                  + New Request
+                </button>
+              </div>
+
+              <!-- Stats Cards -->
+              <div class="stats-grid">
+                <div class="stat-card">
+                  <div class="stat-icon">
+                    <i class="fas fa-clipboard-list"></i>
+                  </div>
+                  <div class="stat-content">
+                    <div class="stat-label">Total Request</div>
+                    <div class="stat-value">12</div>
+                  </div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-icon">
+                    <i class="fas fa-chart-bar"></i>
+                  </div>
+                  <div class="stat-content">
+                    <div class="stat-label">Reports</div>
+                    <div class="stat-value">109</div>
+                  </div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-icon">
+                    <i class="fas fa-file-alt"></i>
+                  </div>
+                  <div class="stat-content">
+                    <div class="stat-label">Documents</div>
+                    <div class="stat-value">12</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Recent Request Section -->
+              <div class="recent-request-section">
+                <div class="section-header">
+                  <h2>Recent Request</h2>
+                  <a href="#" class="view-all-link">
+                    <span>View All</span>
+                    <i class="fas fa-arrow-right"></i>
+                  </a>
+                </div>
+
+                <div class="request-cards">
+                  <div class="request-card">
+                    <div class="request-card-header">
+                      <h3>Drafting of Non-Disclosure Agreement (NDA)</h3>
+                      <span class="status-badge status-active">active</span>
+                    </div>
+                    <div class="request-meta">
+                      <span class="priority">High Level</span>
+                      <span class="time">4h ago</span>
+                    </div>
+                    <div class="contributors">
+                      <i class="fas fa-users"></i>
+                      <span>4 Contributors</span>
+                    </div>
+                  </div>
+
+                  <div class="request-card">
+                    <div class="request-card-header">
+                      <h3>Quarterly Performance Report</h3>
+                      <span class="status-badge status-pending">pending</span>
+                    </div>
+                    <div class="request-meta">
+                      <span class="priority">High Level</span>
+                      <span class="time">30min ago</span>
+                    </div>
+                    <div class="contributors">
+                      <i class="fas fa-users"></i>
+                      <span>4 Contributors</span>
+                    </div>
+                  </div>
+
+                  <div class="request-card">
+                    <div class="request-card-header">
+                      <h3>Update to Document Storage Policy</h3>
+                      <span class="status-badge status-completed">completed</span>
+                    </div>
+                    <div class="request-meta">
+                      <span class="priority">High Level</span>
+                      <span class="time">2h ago</span>
+                    </div>
+                    <div class="contributors">
+                      <i class="fas fa-users"></i>
+                      <span>4 Contributors</span>
+                    </div>
+                  </div>
+
+                  <div class="request-card">
+                    <div class="request-card-header">
+                      <h3>Legal Counsel for HR Disciplinary Case</h3>
+                      <span class="status-badge status-active">active</span>
+                    </div>
+                    <div class="request-meta">
+                      <span class="priority">High Level</span>
+                      <span class="time">19h ago</span>
+                    </div>
+                    <div class="contributors">
+                      <i class="fas fa-users"></i>
+                      <span>4 Contributors</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Reports Section -->
+              <div class="reports-grid">
+                <div class="report-section">
+                  <div class="section-header">
+                    <h3>Legal Report</h3>
+                    <a href="#" class="view-all-link">
+                      <span>View All</span>
+                      <i class="fas fa-arrow-right"></i>
+                    </a>
+                  </div>
+                  <div class="report-card">
+                    <h4>Quarterly Performance Report draft</h4>
+                    <p>Review of the legal terms for the new IT vendor agreement.</p>
+                    <a href="#" class="read-here-link">Read Here</a>
+                  </div>
+                </div>
+
+                <div class="report-section">
+                  <div class="section-header">
+                    <h3>Historical Reports</h3>
+                    <a href="#" class="view-all-link">
+                      <span>View All</span>
+                      <i class="fas fa-arrow-right"></i>
+                    </a>
+                  </div>
+                  <div class="report-card">
+                    <h4>Quarterly Performance Report draft</h4>
+                    <p>Review of the legal terms for the new IT vendor agreement.</p>
+                    <a href="#" class="read-here-link">Read Here</a>
+                  </div>
+                </div>
+              </div>
+
+            </main>
+          </div>
+        
+          <!-- NEW REQUEST MODAL -->
+          <div class="modal" id="newRequestModal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>New Request</h3>
+                <span class="modal-close" id="closeModalBtn">&times;</span>
+              </div>
+        
+              <form id="requestForm">
+                <div class="form-group">
+                    <label class="">Request Type</label>
+                    <select class="form-control" name="type">
+                      <option>Draft Agreement</option>
+                      <option>Review Agreement</option>
+                      <option>Review Letter</option>
+                      <option>Legal Opinion</option>
+                      <option>Draft Letter</option>
+                      <option>Pre-incoporation Request</option>
+                      <option>Post-incoporation Request</option>
+                      <option>Perfection of security Documents</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="">Project / Subject</label>
+                  <input type="text" class="form-control" name="subject" required>  
+                </div>
+            
+                
+                <div class="form-group">
+                  <label class="">Brief Description</label>
+                  <textarea class="form-control" name="description" required></textarea>
+                </div>
+        
+                <div style="display:flex;gap:1rem;justify-content:flex-end;margin-top:1rem;">
+                  <button type="button" class="btn btn-outline" id="cancelModalBtn">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Create Request</button>
+                </div>
+              </form>
+            </div>
+          </div>
+    </div>
+
+ <!-- DataTables JS -->
+<!-- <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>

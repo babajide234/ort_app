@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Tasks - Legal Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="dashboard-page">
+    <!-- NAVBAR -->
+    <header class="navbar">
+      <div class="nav-left" style="display:flex;align-items:center;gap:1rem;">
+        <img src="../assets/image/NSIA-Logo.svg" alt="logo" style="height:44px;border-radius:4px;">
+        <div class="logo">Legal Portal</div>
+      </div>
+      <div class="nav-right">
+        <span class="nav-right-text">Good afternoon, Princess Audu</span>
+        <div class="nav-icons">
+          <a href="#" class="nav-icon-link" id="notificationBtn">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge"></span>
+          </a>
+          <a href="#" class="nav-icon-link">
+            <div class="user-avatar"><i class="fas fa-user"></i></div>
+          </a>
+          <a href="#" class="nav-icon-link" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- NOTIFICATION POPUP -->
+    <div class="notification-popup" id="notificationPopup">
+      <div class="notification-header">
+        <h3>Notifications</h3>
+        <div class="notification-tabs">
+          <button class="notification-tab active">All</button>
+          <button class="notification-tab">Comments</button>
+          <button class="notification-tab">Request</button>
+          <button class="notification-tab">Tasks</button>
+        </div>
+      </div>
+      <div class="notification-list"></div>
+    </div>
+
+    <!-- LOGOUT POPUP -->
+    <div class="logout-popup" id="logoutPopup">
+      <div class="logout-content">
+        <h3>Are you sure you want to log out?</h3>
+        <p>You will be logged out of your account, but you can always log back in anytime.</p>
+        <div class="logout-actions">
+          <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+          <button class="btn btn-primary" id="confirmLogout">Log out</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAYOUT -->
+    <div class="dashboard">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <nav class="sidebar-nav">
+          <a href="./my-tasks.html" class="sidebar-link active">
+            <i class="fas fa-list-check"></i>
+            <span>My Tasks</span>
+          </a>
+          <a href="../historical.html" class="sidebar-link">
+            <i class="fas fa-history"></i>
+            <span>Historical Report</span>
+          </a>
+          <a href="../legal-report.html" class="sidebar-link">
+            <i class="fas fa-file-alt"></i>
+            <span>Legal Report</span>
+          </a>
+          <a href="../agreement-tracker.html" class="sidebar-link">
+            <i class="fas fa-handshake"></i>
+            <span>Agreement Tracker</span>
+          </a>
+          <a href="../legal-docs.html" class="sidebar-link">
+            <i class="fas fa-folder"></i>
+            <span>Documents</span>
+          </a>
+        </nav>
+        <div class="sidebar-footer">
+          <a href="../faq.html" class="sidebar-link sidebar-faq">
+            <i class="fas fa-question-circle"></i>
+            <span>FAQ</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- CONTENT -->
+      <main class="dashboard-content">
+        <!-- Top bar with Back and New Request -->
+        <div class="toolbar">
+          <button class="link-back" id="backBtn"><i class="fas fa-arrow-left"></i> Back</button>
+          <a href="../new-request.html" class="btn btn-primary"><i class="fas fa-plus"></i> New Request</a>
+        </div>
+
+        <!-- Task Board -->
+        <div class="task-board">
+          <!-- Column: New Assignment -->
+          <section class="task-column">
+            <header class="task-column-header">
+              <h3>New Assignment</h3>
+            </header>
+            <div class="task-column-body" id="colNew">
+              <!-- Cards populated by JS -->
+            </div>
+          </section>
+
+          <!-- Column: Under Review -->
+          <section class="task-column">
+            <header class="task-column-header">
+              <h3>Under Review <span class="count-badge" id="underReviewCount">0</span></h3>
+            </header>
+            <div class="task-column-body" id="colReview"></div>
+          </section>
+
+          <!-- Column: Completed Tasks -->
+          <section class="task-column">
+            <header class="task-column-header">
+              <h3>Completed Tasks</h3>
+            </header>
+            <div class="task-column-body" id="colCompleted"></div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Mock tasks data - replace with API later
+    const tasks = [
+      // New Assignment
+      { id: 'LGL-2025-008', title: 'Agreement Review for Project Phoenix', from: 'John Doe', assigned: '08/09/2025', status: 'new' },
+      { id: 'LGL-2025-010', title: 'Compliance Audit for Project Sigma', from: 'Richard Roe', assigned: '08/11/2025', status: 'new' },
+      { id: 'LGL-2025-009', title: 'Contract Negotiation for Project Delta', from: 'Jane Smith', assigned: '08/10/2025', status: 'new' },
+
+      // Under Review
+      { id: 'LGL-2025-004', title: 'NDA Review', from: 'John Doe', assigned: '08/09/2025', status: 'review' },
+      { id: 'LGL-2025-005A', title: 'Contract Negotiation', from: 'Jane Smith', assigned: '08/10/2025', status: 'review' },
+      { id: 'LGL-2025-005B', title: 'Contract Negotiation', from: 'Jane Smith', assigned: '08/10/2025', status: 'review' },
+
+      // Completed
+      { id: 'LGL-2025-018', title: 'Agreement Review for Project Phoenix', from: 'John Doe', assigned: '08/09/2025', status: 'completed' },
+      { id: 'LGL-2025-020', title: 'Compliance Audit for Project Sigma', from: 'Richard Roe', assigned: '08/11/2025', status: 'completed' },
+      { id: 'LGL-2025-019', title: 'Contract Negotiation for Project Delta', from: 'Jane Smith', assigned: '08/10/2025', status: 'completed' }
+    ];
+
+    const els = {
+      new: document.getElementById('colNew'),
+      review: document.getElementById('colReview'),
+      completed: document.getElementById('colCompleted'),
+      reviewCount: document.getElementById('underReviewCount'),
+      backBtn: document.getElementById('backBtn'),
+      notificationBtn: document.getElementById('notificationBtn'),
+      notificationPopup: document.getElementById('notificationPopup'),
+      logoutBtn: document.getElementById('logoutBtn'),
+      logoutPopup: document.getElementById('logoutPopup'),
+      cancelLogout: document.getElementById('cancelLogout'),
+      confirmLogout: document.getElementById('confirmLogout')
+    };
+
+    function card(t) {
+      const accent = t.status === 'new' ? 'accent-new' : t.status === 'review' ? 'accent-review' : 'accent-completed';
+      return `
+        <article class="task-card ${accent}" data-id="${t.id}">
+          <a href="./my-task-detail.html?id=${encodeURIComponent(t.id)}" class="task-card-title">
+            ${t.id}: ${t.title}
+          </a>
+          <div class="task-card-meta">
+            From: ${t.from}<br/>
+            Assigned: ${t.assigned}
+          </div>
+        </article>
+      `;
+    }
+
+    function render() {
+      const groups = {
+        new: tasks.filter(t => t.status === 'new'),
+        review: tasks.filter(t => t.status === 'review'),
+        completed: tasks.filter(t => t.status === 'completed')
+      };
+
+      if (els.new) els.new.innerHTML = groups.new.map(card).join('');
+      if (els.review) els.review.innerHTML = groups.review.map(card).join('');
+      if (els.completed) els.completed.innerHTML = groups.completed.map(card).join('');
+      if (els.reviewCount) els.reviewCount.textContent = groups.review.length.toString();
+    }
+
+    render();
+
+    // Back
+    if (els.backBtn) els.backBtn.addEventListener('click', () => history.back());
+
+    // Notification popup
+    if (els.notificationBtn && els.notificationPopup) {
+      els.notificationBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        els.notificationPopup.classList.toggle('active');
+      });
+      document.addEventListener('click', (e) => {
+        if (!els.notificationBtn.contains(e.target) && !els.notificationPopup.contains(e.target)) {
+          els.notificationPopup.classList.remove('active');
+        }
+      });
+    }
+
+    // Logout popup
+    if (els.logoutBtn && els.logoutPopup) {
+      els.logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        els.logoutPopup.classList.add('active');
+      });
+      if (els.cancelLogout) els.cancelLogout.addEventListener('click', () => els.logoutPopup.classList.remove('active'));
+      if (els.confirmLogout) els.confirmLogout.addEventListener('click', () => {
+        alert('Logging out...');
+        els.logoutPopup.classList.remove('active');
+      });
+      els.logoutPopup.addEventListener('click', (e) => {
+        if (e.target === els.logoutPopup) els.logoutPopup.classList.remove('active');
+      });
+    }
+  });
+  </script>
+</body>
+</html>

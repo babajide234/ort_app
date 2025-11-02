@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task Detail - Legal Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="dashboard-page">
+    <!-- NAVBAR -->
+    <header class="navbar">
+      <div class="nav-left" style="display:flex;align-items:center;gap:1rem;">
+        <img src="../assets/image/NSIA-Logo.svg" alt="logo" style="height:44px;border-radius:4px;">
+        <div class="logo">Legal Portal</div>
+      </div>
+      <div class="nav-right">
+        <span class="nav-right-text">Good afternoon, Princess Audu</span>
+        <div class="nav-icons">
+          <a href="#" class="nav-icon-link" id="notificationBtn">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge"></span>
+          </a>
+          <a href="#" class="nav-icon-link">
+            <div class="user-avatar"><i class="fas fa-user"></i></div>
+          </a>
+          <a href="#" class="nav-icon-link" id="logoutBtn">
+            <i class="fas fa-sign-out-alt"></i>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- NOTIFICATION POPUP -->
+    <div class="notification-popup" id="notificationPopup"></div>
+    <!-- LOGOUT POPUP -->
+    <div class="logout-popup" id="logoutPopup">
+      <div class="logout-content">
+        <h3>Are you sure you want to log out?</h3>
+        <p>You will be logged out of your account, but you can always log back in anytime.</p>
+        <div class="logout-actions">
+          <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+          <button class="btn btn-primary" id="confirmLogout">Log out</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <nav class="sidebar-nav">
+          <a href="./my-tasks.html" class="sidebar-link active">
+            <i class="fas fa-list-check"></i>
+            <span>My Tasks</span>
+          </a>
+          <a href="../historical.html" class="sidebar-link">
+            <i class="fas fa-history"></i>
+            <span>Historical Report</span>
+          </a>
+          <a href="../legal-report.html" class="sidebar-link">
+            <i class="fas fa-file-alt"></i>
+            <span>Legal Report</span>
+          </a>
+          <a href="../agreement-tracker.html" class="sidebar-link">
+            <i class="fas fa-handshake"></i>
+            <span>Agreement Tracker</span>
+          </a>
+          <a href="../legal-docs.html" class="sidebar-link">
+            <i class="fas fa-folder"></i>
+            <span>Documents</span>
+          </a>
+        </nav>
+        <div class="sidebar-footer">
+          <a href="../faq.html" class="sidebar-link sidebar-faq">
+            <i class="fas fa-question-circle"></i>
+            <span>FAQ</span>
+          </a>
+        </div>
+      </aside>
+
+      <!-- CONTENT -->
+      <main class="dashboard-content">
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <button class="link-back" id="backBtn"><i class="fas fa-arrow-left"></i> Back</button>
+          <a href="#" class="btn btn-primary" id="uploadNewDocBtn"><i class="fas fa-plus"></i> Upload New Document</a>
+        </div>
+
+        <!-- Heading -->
+        <div class="task-detail-header">
+          <h2>Request Details - <span id="detailId">LGL-2025-008</span></h2>
+        </div>
+
+        <div class="task-detail-grid">
+          <!-- Left main content -->
+          <section class="task-detail-main">
+            <div class="task-detail-card">
+              <div class="task-detail-card-head">
+                <h3 id="detailTitle">LGL-2025-008: Agreement Review for Project Phoenix</h3>
+                <span class="status-badge-chip review" id="detailStatus">Under Review</span>
+              </div>
+              <hr class="divider">
+
+              <!-- Action Panel -->
+              <div class="action-panel">
+                <div class="action-panel-head">Legal Officer Action Panel</div>
+                <p class="action-panel-sub">Task Assigned from GC. Execute and proceed.</p>
+                <div class="action-buttons">
+                  <button class="btn-request-action">Send for Review</button>
+                  <button class="btn-action-outline" style="background-color:#3f7a57; color:#ffffff; border: none;">Request Negotiation</button>
+                  <button class="btn-action-outline" style="background-color: #F59E0B;color:#ffffff; border: none;">Request Info from RO</button>
+                </div>
+              </div>
+
+              <!-- Documents -->
+              <div class="documents-block">
+                <h4>Documents</h4>
+                <ul class="doc-list">
+                  <li>
+                    <a href="#" class="doc-link">FileContract_Project_Zeta_Signed.pdf</a>
+                    <a href="#" class="doc-download">Download</a>
+                  </li>
+                  <li>
+                    <a href="#" class="doc-link">FileContract_Project_Alpha_Signed.docx</a>
+                    <a href="#" class="doc-download">Download</a>
+                  </li>
+                  <li>
+                    <a href="#" class="doc-link">FileContract_Project_Beta_Signed.pdf</a>
+                    <a href="#" class="doc-download">Download</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <!-- Right sidebar: Activity/Comments -->
+          <aside class="task-detail-side">
+            <div class="side-tabs">
+              <button class="side-tab active" data-tab="activity">Activity Log</button>
+              <button class="side-tab" data-tab="comments">Comments</button>
+            </div>
+            <div class="side-content">
+              <div class="tab-panel active" id="tab-activity">
+                <ul class="activity-list">
+                  <li class="activity-item success">
+                    <span class="activity-icon success"><i class="fas fa-check"></i></span>
+                    <div>
+                      <div class="activity-title">Cinderella Started review</div>
+                      <div class="activity-time">07/08/2025 10:45 AM</div>
+                    </div>
+                  </li>
+                  <li class="activity-item neutral">
+                    <span class="activity-icon neutral"><i class="fas fa-circle"></i></span>
+                    <div>
+                      <div class="activity-title">John Doe created this request</div>
+                      <div class="activity-time">07/08/2025 10:45 AM</div>
+                    </div>
+                  </li>
+                  <li class="activity-item neutral">
+                    <span class="activity-icon neutral"><i class="fas fa-circle"></i></span>
+                    <div>
+                      <div class="activity-title">John Doe created this request</div>
+                      <div class="activity-time">07/08/2025 10:45 AM</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div class="tab-panel" id="tab-comments">
+                <div class="empty-comments">No comments yet.</div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const backBtn = document.getElementById('backBtn');
+      if (backBtn) backBtn.addEventListener('click', () => history.back());
+
+      // Tabs
+      const tabs = document.querySelectorAll('.side-tab');
+      const panels = document.querySelectorAll('.tab-panel');
+      tabs.forEach(btn => btn.addEventListener('click', () => {
+        tabs.forEach(b => b.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        const id = btn.dataset.tab;
+        document.getElementById('tab-' + id).classList.add('active');
+      }));
+    });
+  </script>
+</body>
+</html>

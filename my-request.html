@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Requests - Legal Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-page">
+        <!-- NAVBAR -->
+        <header class="navbar">
+            <div class="nav-left" style="display:flex;align-items:center;gap:1rem;">
+                <img src="./assets/image/NSIA-Logo.svg" alt="logo" style="height:44px;border-radius:4px;">
+                <div class="logo">Legal Portal</div>
+            </div>
+        
+            <div class="nav-right">
+                <span class="nav-right-text">Good afternoon, Princess Audu</span>
+                <div class="nav-icons">
+                    <a href="#" class="nav-icon-link" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </a>
+                    <a href="#" class="nav-icon-link">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="nav-icon-link" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- NOTIFICATION POPUP -->
+        <div class="notification-popup" id="notificationPopup">
+            <div class="notification-header">
+                <h3>Notifications</h3>
+                <div class="notification-tabs">
+                    <button class="notification-tab active">All</button>
+                    <button class="notification-tab">Comments</button>
+                    <button class="notification-tab">Request</button>
+                    <button class="notification-tab">Tasks</button>
+                </div>
+            </div>
+            <div class="notification-list">
+                <div class="notification-item">
+                    <div class="notification-avatar">JD</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Request [Request ID] has been closed.</div>
+                        <div class="notification-description">The final document has been uploaded for your request.</div>
+                        <div class="notification-meta">
+                            <span class="notification-time">1 day ago</span>
+                            <a href="#" class="notification-link">View details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOGOUT POPUP -->
+        <div class="logout-popup" id="logoutPopup">
+            <div class="logout-content">
+                <h3>Are you sure you want to log out?</h3>
+                <p>You will be logged out of your account, but you can always log back in anytime.</p>
+                <div class="logout-actions">
+                    <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+                    <button class="btn btn-primary" id="confirmLogout">Log out</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD LAYOUT -->
+        <div class="dashboard">
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="my-request.html" class="sidebar-link active">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>My Active Request</span>
+                    </a>
+                    <a href="legal-report.html" class="sidebar-link">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Legal Report</span>
+                    </a>
+                    <a href="historical.html" class="sidebar-link">
+                        <i class="fas fa-history"></i>
+                        <span>Historical Report</span>
+                    </a>
+                    <a href="agreement-tracker.html" class="sidebar-link">
+                        <i class="fas fa-handshake"></i>
+                        <span>Agreement Tracker</span>
+                    </a>
+                    <a href="legal-docs.html" class="sidebar-link">
+                        <i class="fas fa-folder"></i>
+                        <span>Documents</span>
+                    </a>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <a href="faq.html" class="sidebar-link sidebar-faq">
+                        <i class="fas fa-question-circle"></i>
+                        <span>FAQ</span>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- CONTENT -->
+            <main class="dashboard-content">
+                <div class="page-header">
+                    <h1>My Requests</h1>
+                    <a href="new-request.html" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> New Request
+                    </a>
+                </div>
+
+                <!-- Search -->
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search Documents..." id="searchInput">
+                </div>
+
+                <!-- Requests Table -->
+                <div class="requests-table-container">
+                    <table class="requests-table" id="requestsTable">
+                        <thead>
+                            <tr>
+                                <th>Requester</th>
+                                <th>Title</th>
+                                <th>ID NO</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requestsTableBody">
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                    <div class="no-data" id="noData" style="display:none;">
+                        <p>No Request Available</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- NEW REQUEST MODAL -->
+        <div class="modal" id="newRequestModal">
+            <div class="modal-content modal-large">
+                <div class="modal-header">
+                    <button class="back-btn" id="backBtn">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <span class="modal-close" id="closeModalBtn">&times;</span>
+                </div>
+
+                <div class="form-header">
+                    <h2>New Request</h2>
+                    <p class="form-subtitle">Complete the form to send a new request. Note that by clicking confidential, only the GC will be able to see your request.</p>
+                </div>
+
+                <form id="requestForm">
+                    <div class="form-group">
+                        <label>Request Type</label>
+                        <select class="form-control" name="requestType" required>
+                            <option value="">Select Request Type</option>
+                            <option>Draft Agreement</option>
+                            <option>Review Agreement</option>
+                            <option>Review Letter</option>
+                            <option>Legal Opinion</option>
+                            <option>Draft Letter</option>
+                            <option>Pre-incorporation Request</option>
+                            <option>Post-incorporation Request</option>
+                            <option>Perfection of security Documents</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Project / Subject</label>
+                        <input type="text" class="form-control" name="subject" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Requesting Unit</label>
+                        <input type="text" class="form-control" name="requestingUnit" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>About</label>
+                        <textarea class="form-control" name="about" rows="4" placeholder="Write a brief description about the request." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deadline</label>
+                        <input type="date" class="form-control" name="deadline" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Document</label>
+                        <div class="upload-area" id="uploadArea">
+                            <i class="fas fa-upload"></i>
+                            <p><strong>Upload a file</strong> or drag and drop</p>
+                            <p class="upload-hint">PNG, JPG, PDF up to 10mb</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <span>Is this request Confidential?</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" name="confidential">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancelFormBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- UPLOAD DOCUMENT MODAL -->
+        <div class="modal" id="uploadDocModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Upload a New Document</h3>
+                    <span class="modal-close" id="closeUploadModalBtn">&times;</span>
+                </div>
+                <p class="modal-subtitle">Each document uploaded must be linked to an existing request.</p>
+
+                <form id="uploadDocForm">
+                    <div class="form-group">
+                        <label>Link to Request</label>
+                        <select class="form-control" name="requestId" required>
+                            <option value="">Select a request ID</option>
+                            <option value="LEGALREQ1207385">LEGALREQ1207385</option>
+                            <option value="LEGALREQ1207386">LEGALREQ1207386</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Document Type</label>
+                        <input type="text" class="form-control" name="documentType" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Requester Unit</label>
+                        <input type="text" class="form-control" name="requesterUnit" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Project Name</label>
+                        <input type="text" class="form-control" name="projectName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Year</label>
+                        <input type="text" class="form-control" name="year" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Document</label>
+                        <div class="upload-area" id="docUploadArea">
+                            <i class="fas fa-upload"></i>
+                            <p><strong>Upload a file</strong> or drag and drop</p>
+                            <p class="upload-hint">PNG, JPG, PDF up to 10mb</p>
+                            <input type="file" id="fileInput" accept=".png,.jpg,.jpeg,.pdf" style="display:none;">
+                        </div>
+                        <div id="fileNameDisplay" class="file-name-display"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancelUploadBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- SUCCESS MODAL -->
+        <div class="modal" id="successModal">
+            <div class="modal-content modal-success">
+                <div class="success-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h3>Request Submitted Successful</h3>
+                <p>Lorem Ipsum is not simply random text. It has roots in a piece of classical Lorem Ipsum is not simply random text. It has roots in.</p>
+                <button class="btn btn-primary" id="backHomeBtn">Back Home</button>
+            </div>
+        </div>
+
+        <!-- REQUEST DETAILS DRAWER -->
+        <div class="request-drawer" id="requestDrawer">
+            <div class="request-drawer-content">
+                <div class="drawer-header">
+                    <div>
+                        <h2 class="drawer-title">Request Details</h2>
+                        <p class="drawer-subtitle" id="drawerSubtitle">Details about request LEGALREQ129087</p>
+                    </div>
+                </div>
+
+                <div class="drawer-body">
+                    <div class="drawer-field">
+                        <label class="drawer-label">Request Type</label>
+                        <div class="drawer-value" id="drawerRequestType">Agreement</div>
+                    </div>
+
+                    <div class="drawer-field">
+                        <label class="drawer-label">Agreement Type</label>
+                        <div class="drawer-value" id="drawerAgreementType">NDA</div>
+                    </div>
+
+                    <div class="drawer-field">
+                        <label class="drawer-label">Project / Subject</label>
+                        <div class="drawer-value" id="drawerSubject">Lorem ipsum</div>
+                    </div>
+
+                    <div class="drawer-field">
+                        <label class="drawer-label">Request Status</label>
+                        <div class="drawer-status" id="drawerStatus">
+                            <span class="status-badge-drawer in-progress">In progress</span>
+                        </div>
+                    </div>
+
+                    <div class="drawer-field">
+                        <label class="drawer-label">Details</label>
+                        <div class="drawer-value drawer-details" id="drawerDetails">
+                            lorem ipsum dolor sit amet lorem ipsum lorem ipsum
+                        </div>
+                    </div>
+
+                    <div class="drawer-field">
+                        <label class="drawer-label">*Confidential*</label>
+                    </div>
+
+                    <div class="drawer-field">
+                        <a href="#" class="drawer-link">View Documents</a>
+                    </div>
+                </div>
+
+                <div class="drawer-footer">
+                    <button class="btn btn-primary" id="closeDrawerBtn">Close</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/my-requests.js"></script>
+</body>
+</html>

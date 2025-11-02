@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FAQ - Legal Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-page">
+        <!-- NAVBAR -->
+        <header class="navbar">
+            <div class="nav-left" style="display:flex;align-items:center;gap:1rem;">
+                <img src="./assets/image/NSIA-Logo.svg" alt="logo" style="height:44px;border-radius:4px;">
+                <div class="logo">Legal Portal</div>
+            </div>
+        
+            <div class="nav-right">
+                <span class="nav-right-text">Good afternoon, Princess Audu</span>
+                <div class="nav-icons">
+                    <a href="#" class="nav-icon-link" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </a>
+                    <a href="#" class="nav-icon-link">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="nav-icon-link" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- NOTIFICATION POPUP -->
+        <div class="notification-popup" id="notificationPopup">
+            <div class="notification-header">
+                <h3>Notifications</h3>
+                <div class="notification-tabs">
+                    <button class="notification-tab active">All</button>
+                    <button class="notification-tab">Comments</button>
+                    <button class="notification-tab">Request</button>
+                    <button class="notification-tab">Tasks</button>
+                </div>
+            </div>
+            <div class="notification-list">
+                <div class="notification-item">
+                    <div class="notification-avatar">JD</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Request [Request ID] has been closed.</div>
+                        <div class="notification-description">The final document has been uploaded for your request.</div>
+                        <div class="notification-meta">
+                            <span class="notification-time">1 day ago</span>
+                            <a href="#" class="notification-link">View details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOGOUT POPUP -->
+        <div class="logout-popup" id="logoutPopup">
+            <div class="logout-content">
+                <h3>Are you sure you want to log out?</h3>
+                <p>You will be logged out of your account, but you can always log back in anytime.</p>
+                <div class="logout-actions">
+                    <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+                    <button class="btn btn-primary" id="confirmLogout">Log out</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD LAYOUT -->
+        <div class="dashboard">
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="my-request.html" class="sidebar-link">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>My Active Request</span>
+                    </a>
+                    <a href="legal-report.html" class="sidebar-link">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Legal Report</span>
+                    </a>
+                    <a href="historical.html" class="sidebar-link">
+                        <i class="fas fa-history"></i>
+                        <span>Historical Report</span>
+                    </a>
+                    <a href="agreement-tracker.html" class="sidebar-link">
+                        <i class="fas fa-handshake"></i>
+                        <span>Agreement Tracker</span>
+                    </a>
+                    <a href="legal-docs.html" class="sidebar-link">
+                        <i class="fas fa-folder"></i>
+                        <span>Documents</span>
+                    </a>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <a href="faq.html" class="sidebar-link sidebar-faq active">
+                        <i class="fas fa-question-circle"></i>
+                        <span>FAQ</span>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- CONTENT -->
+            <main class="dashboard-content">
+                <div class="page-header">
+                    <h1>FAQ Section</h1>
+                </div>
+
+                <!-- FAQ Hero Banner -->
+                <div class="faq-hero">
+                    <div class="faq-hero-content">
+                        <h2>Get answers to the most frequently asked questions(FAQs) how the NSIA Legal Portal works. Learn how to initiate a request, assign tasks or carry out a task.</h2>
+                    </div>
+                    <div class="faq-hero-icons">
+                        <i class="fas fa-comment-dots"></i>
+                        <i class="fas fa-comments"></i>
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                </div>
+
+                <!-- FAQ Accordion -->
+                <div class="faq-accordion" id="faqAccordion">
+                    <!-- FAQ items will be populated by JavaScript -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/faq.js"></script>
+</body>
+</html>

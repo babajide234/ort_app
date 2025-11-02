@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.4/css/dataTables.dataTables.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-datatables@1.8.6/dist/vanilla-dataTables.min.css" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- DataTables JS -->
+</head>
+<body>
+        <div class="dashboard-page">
+        <!-- NAVBAR -->
+          <header class="navbar">
+            <div class="nav-left" style="display:flex;align-items:center;gap:1rem;">
+              <img src="./assets/image/NSIA-Logo.svg" alt="logo" style="height:44px;border-radius:4px;">
+              <div class="logo">Legal Portal</div>
+            </div>
+        
+            <nav>
+              <ul style="align-items:center;">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Legal Request</a></li>
+                <li><a href="dashboard.html" class="active">Agreement Tracker</a></li>
+              </ul>
+            </nav>
+        
+            <div class="nav-right">
+              <span class="nav-right-text">Good Afternoon, David Atuwo</span>
+            </div>
+          </header>
+        
+          <!-- DASHBOARD LAYOUT -->
+          <div class="dashboard">
+        
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+              <nav style="margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;">
+                <a href="dashboard.html" class="">My Active Request</a>
+                <a href="historical.html" class="active">Historical Report</a>
+                <a href="legal-report.html" class="">Legal Report</a>
+              </nav>
+        
+              
+            </aside>
+        
+            <!-- CONTENT -->
+            <main class="dashboard-content">
+              <div class="dashboard-header">
+                <button class="btn btn-primary" id="newRequestBtn">
+                  + New Request
+                </button>
+              </div>
+              <div class="card">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <div>
+                    <h2>Historical Report</h2>
+                    <div class="historical-filters" >
+                        <input type="date" name="" id="" title="date from">
+                        <input type="date" name="" id="" title="date to">
+                        <button class="btn btn-primary">
+                            Search
+                        </button>
+                    </div>
+                  </div>
+                </div>
+        
+                <!-- TABLE / data placeholder -->
+                <div style="margin-top:1.25rem;">
+                    <table id="activeRequestsTable" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                            <th>Title</th>
+                            <th>Requester</th>
+                            <th>Subject</th>
+                            <th>Request Status</th>
+                            <th>Date Created</th>
+                            <th>Request Type</th>
+                            <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+        
+              </div>
+        
+              
+        
+            </main>
+          </div>
+        
+          <!-- NEW REQUEST MODAL -->
+          <div class="modal" id="newRequestModal">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h3>New Request</h3>
+                <span class="modal-close" id="closeModalBtn">&times;</span>
+              </div>
+        
+              <form id="requestForm">
+                <div class="form-group">
+                    <label class="">Request Type</label>
+                    <select class="form-control" name="type">
+                      <option>Draft Agreement</option>
+                      <option>Review Agreement</option>
+                      <option>Review Letter</option>
+                      <option>Legal Opinion</option>
+                      <option>Draft Letter</option>
+                      <option>Pre-incoporation Request</option>
+                      <option>Post-incoporation Request</option>
+                      <option>Perfection of security Documents</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="">Project / Subject</label>
+                  <input type="text" class="form-control" name="subject" required>  
+                </div>
+            
+                
+                <div class="form-group">
+                  <label class="">Brief Description</label>
+                  <textarea class="form-control" name="description" required></textarea>
+                </div>
+        
+                <div style="display:flex;gap:1rem;justify-content:flex-end;margin-top:1rem;">
+                  <button type="button" class="btn btn-outline" id="cancelModalBtn">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Create Request</button>
+                </div>
+              </form>
+            </div>
+          </div>
+    </div>
+
+ <!-- DataTables JS -->
+<!-- <script src="https://cdn.datatables.net/2.3.4/js/dataTables.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/2.3.4/js/dataTables.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

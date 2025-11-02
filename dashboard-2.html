@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Legal Report - Legal Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Additional styles for dashboard-2 */
+        .legal-report-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .legal-stat-card {
+            background: linear-gradient(135deg, #1a5f3f 0%, #2d8659 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .legal-stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .legal-stat-icon {
+            font-size: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .legal-stat-content {
+            flex: 1;
+        }
+
+        .legal-stat-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .legal-stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .filter-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .filter-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #1a5f3f;
+        }
+
+        .filter-group input[type="date"] {
+            font-family: inherit;
+        }
+
+        .search-button {
+            background: #1a5f3f;
+            color: white;
+            border: none;
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .search-button:hover {
+            background: #145038;
+        }
+
+        @media (max-width: 768px) {
+            .legal-report-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-page">
+        <!-- NAVBAR -->
+        <header class="navbar">
+            <div class="nav-left" style="display:flex;align-items:center;gap:1rem;">
+                <img src="./assets/image/NSIA-Logo.svg" alt="logo" style="height:44px;border-radius:4px;">
+                <div class="logo">Legal Portal</div>
+            </div>
+        
+            <div class="nav-right">
+                <span class="nav-right-text">Good afternoon, Princess Audu</span>
+                <div class="nav-icons">
+                    <a href="#" class="nav-icon-link" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge"></span>
+                    </a>
+                    <a href="#" class="nav-icon-link">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </a>
+                    <a href="#" class="nav-icon-link" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- NOTIFICATION POPUP -->
+        <div class="notification-popup" id="notificationPopup">
+            <div class="notification-header">
+                <h3>Notifications</h3>
+                <div class="notification-tabs">
+                    <button class="notification-tab active">All</button>
+                    <button class="notification-tab">Comments</button>
+                    <button class="notification-tab">Request</button>
+                    <button class="notification-tab">Tasks</button>
+                </div>
+            </div>
+            <div class="notification-list">
+                <div class="notification-item">
+                    <div class="notification-avatar">JD</div>
+                    <div class="notification-content">
+                        <div class="notification-title">Request [Request ID] has been closed.</div>
+                        <div class="notification-description">The final document has been uploaded for your request.</div>
+                        <div class="notification-meta">
+                            <span class="notification-time">1 day ago</span>
+                            <a href="#" class="notification-link">View details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LOGOUT POPUP -->
+        <div class="logout-popup" id="logoutPopup">
+            <div class="logout-content">
+                <h3>Are you sure you want to log out?</h3>
+                <p>You will be logged out of your account, but you can always log back in anytime.</p>
+                <div class="logout-actions">
+                    <button class="btn btn-outline" id="cancelLogout">Cancel</button>
+                    <button class="btn btn-primary" id="confirmLogout">Log out</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD LAYOUT -->
+        <div class="dashboard">
+            <!-- SIDEBAR -->
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="my-request.html" class="sidebar-link">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>My Active Request</span>
+                    </a>
+                    <a href="dashboard-2.html" class="sidebar-link active">
+                        <i class="fas fa-file-alt"></i>
+                        <span>Legal Report</span>
+                    </a>
+                    <a href="historical.html" class="sidebar-link">
+                        <i class="fas fa-history"></i>
+                        <span>Historical Report</span>
+                    </a>
+                    <a href="agreement-tracker.html" class="sidebar-link">
+                        <i class="fas fa-handshake"></i>
+                        <span>Agreement Tracker</span>
+                    </a>
+                    <a href="legal-docs.html" class="sidebar-link">
+                        <i class="fas fa-folder"></i>
+                        <span>Documents</span>
+                    </a>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <a href="faq.html" class="sidebar-link sidebar-faq">
+                        <i class="fas fa-question-circle"></i>
+                        <span>FAQ</span>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- CONTENT -->
+            <main class="dashboard-content">
+                <div class="page-header">
+                    <h1>Legal Report</h1>
+                    <a href="new-request.html" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> New Request
+                    </a>
+                </div>
+
+                <!-- Legal Report Stats Cards -->
+                <div class="legal-report-stats">
+                    <div class="legal-stat-card">
+                        <div class="legal-stat-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <div class="legal-stat-content">
+                            <div class="legal-stat-label">All Requests</div>
+                            <div class="legal-stat-value">12</div>
+                        </div>
+                    </div>
+
+                    <div class="legal-stat-card">
+                        <div class="legal-stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="legal-stat-content">
+                            <div class="legal-stat-label">Approved Requests</div>
+                            <div class="legal-stat-value">109</div>
+                        </div>
+                    </div>
+
+                    <div class="legal-stat-card">
+                        <div class="legal-stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="legal-stat-content">
+                            <div class="legal-stat-label">Legal Pending Requests</div>
+                            <div class="legal-stat-value">12</div>
+                        </div>
+                    </div>
+
+                    <div class="legal-stat-card">
+                        <div class="legal-stat-icon">
+                            <i class="fas fa-hourglass-half"></i>
+                        </div>
+                        <div class="legal-stat-content">
+                            <div class="legal-stat-label">RO Pending Request</div>
+                            <div class="legal-stat-value">12</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Section -->
+                <div class="filter-section">
+                    <div class="filter-title">
+                        <i class="fas fa-filter"></i>
+                        Choose Request Type
+                    </div>
+                    
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label for="startDate">Start Date</label>
+                            <input type="date" id="startDate" placeholder="mm/dd/yyyy">
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label for="endDate">End Date</label>
+                            <input type="date" id="endDate" placeholder="mm/dd/yyyy">
+                        </div>
+                    </div>
+
+                    <button class="search-button">
+                        <i class="fas fa-search"></i>
+                        Search Documents
+                    </button>
+                </div>
+
+            </main>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/my-requests.js"></script>
+    <script>
+        // Additional JavaScript for dashboard-2
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search button functionality
+            const searchButton = document.querySelector('.search-button');
+            if (searchButton) {
+                searchButton.addEventListener('click', function() {
+                    const startDate = document.getElementById('startDate').value;
+                    const endDate = document.getElementById('endDate').value;
+                    
+                    if (!startDate || !endDate) {
+                        alert('Please select both start and end dates');
+                        return;
+                    }
+                    
+                    console.log('Searching documents from', startDate, 'to', endDate);
+                    // Add your search logic here
+                });
+            }
+        });
+    </script>
+</body>
+</html>
