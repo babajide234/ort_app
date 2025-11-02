@@ -128,17 +128,9 @@ External libraries loaded via CDN:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is proprietary software developed for the Nigeria Sovereign Investment Authority (NSIA).
-
 ## 👥 Authors
 
 - **babajide234** - Initial development
-
-## 📞 Support
-
-For support and inquiries, please contact the NSIA IT department.
 
 ## 🔄 Version History
 
