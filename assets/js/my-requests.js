@@ -32,41 +32,47 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   ];
 
-  // Populate table
-  function populateTable(data) {
-    const tbody = document.getElementById('requestsTableBody');
-    const noData = document.getElementById('noData');
-    
-    if (data.length === 0) {
-      tbody.innerHTML = '';
-      noData.style.display = 'block';
-      return;
-    }
-
-    noData.style.display = 'none';
-    tbody.innerHTML = data.map(request => `
-      <tr>
-        <td>${request.requester}</td>
-        <td>${request.title}</td>
-        <td>${request.idNo}</td>
-        <td>${request.date}</td>
-        <td>
-          <span class="table-status ${request.status.toLowerCase().replace(' ', '-')}">
-            <span class="table-status-dot"></span>
-            ${request.status}
-          </span>
-        </td>
-        <td>
-          <button class="table-action-btn" title="View">
-            <i class="fas fa-eye"></i>
-          </button>
-        </td>
-      </tr>
-    `).join('');
+  // Helper function to get status badge HTML
+  function getStatusBadge(status) {
+    return `
+      <span class="table-status ${status.toLowerCase().replace(' ', '-')}">
+        <span class="table-status-dot"></span>
+        ${status}
+      </span>
+    `;
   }
 
-  // Initialize table
-  populateTable(mockRequests);
+  // Helper function to get action buttons HTML
+  function getActionButtons() {
+    return `
+      <button class="table-action-btn" title="View">
+        <i class="fas fa-eye"></i>
+      </button>
+    `;
+  }
+
+  // Initialize DataTable
+  const table = new DataTable('#requestsTable', {
+    data: mockRequests.map(req => [
+      req.requester,
+      req.title,
+      req.idNo,
+      req.date,
+      getStatusBadge(req.status),
+      getActionButtons()
+    ]),
+    columns: [
+      { title: 'Requester' },
+      { title: 'Title' },
+      { title: 'ID NO' },
+      { title: 'Date' },
+      { title: 'Status' },
+      { title: 'Action' }
+    ],
+    responsive: true,
+    pageLength: 10,
+    lengthMenu: [5, 10, 25, 50]
+  });
 
   // Drawer functionality
   const requestDrawer = document.getElementById('requestDrawer');
@@ -109,20 +115,6 @@ document.addEventListener('DOMContentLoaded', function () {
   if (closeDrawerBtn) {
     closeDrawerBtn.addEventListener('click', () => {
       requestDrawer.classList.remove('active');
-    });
-  }
-
-  // Search functionality
-  const searchInput = document.getElementById('searchInput');
-  if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
-      const searchTerm = e.target.value.toLowerCase();
-      const filteredData = mockRequests.filter(request => 
-        request.requester.toLowerCase().includes(searchTerm) ||
-        request.title.toLowerCase().includes(searchTerm) ||
-        request.idNo.toLowerCase().includes(searchTerm)
-      );
-      populateTable(filteredData);
     });
   }
 

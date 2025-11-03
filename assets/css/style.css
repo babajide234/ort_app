@@ -508,6 +508,7 @@ label {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow);
+    padding: 1em;
 }
 
 .requests-table {
